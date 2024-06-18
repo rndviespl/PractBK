@@ -64,7 +64,7 @@ namespace bk654
                 MessageBox.Show("Окно уже открыто!");
             }
         }
-
+        //uu
         private void Table3_Click(object sender, RoutedEventArgs e)
         {
             if (!viewWorkShiftOpen)
