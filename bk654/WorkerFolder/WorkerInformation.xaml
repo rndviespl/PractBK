@@ -1,0 +1,15 @@
+﻿<Window x:Class="bk654.WorkerFolder.WorkerInformation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bk654.WorkerFolder"
+        mc:Ignorable="d"
+        Title="WorkerInformation" Height="450" Width="800">
+    <StackPanel>
+        <Button x:Name="openUpdateWorker" Content="обновить данные работника" Click="OpenUpdateWorker_Click"  Margin="0 5 0 2"/>
+        <Button x:Name="openDeleteWorker" Content="удалить работника" Click="OpenDeleteWorker_Click"  Margin="0 2 0 2"/>
+        <Button x:Name="openCreateWorker" Content="создать запись о работнике" Click="OpenCreateWorker_Click" Margin="0 2 0 2"/>
+        <Button x:Name="openViewWorker" Content="посмотреть записи сотрудников" Click="OpenViewWorker_Click" Margin="0 2 0 2"/>
+    </StackPanel>
+</Window>

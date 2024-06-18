@@ -1,0 +1,17 @@
+﻿<Window x:Class="bk654.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bk654"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="250" Width="400"  MinHeight="250" MinWidth="400" MaxHeight="500" MaxWidth="800">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button  x:Name="viewRestaurantData" VerticalAlignment="Bottom" Content="рестораны" Click="Restaurant_Click" Margin="5,2" Width="150"/>
+        <Button  x:Name="viewWorkerData" VerticalAlignment="Bottom" Content="работники" Click="Table2_Click" Margin="5,2" Width="150"/>
+        <Button  x:Name="perfomanceButton" VerticalAlignment="Bottom" Content="отзывы о сотрудниках" Click="PerfomanceButton_Click" Margin="5,2" Width="150"/>
+        <Button  x:Name="workShiftData" VerticalAlignment="Bottom" Content="смены работников" Click="Table3_Click" Margin="5,2" Width="150"/>
+        <Button x:Name="viewPositionAtWorkData" VerticalAlignment="Bottom" Content="должности" Click="Table1_Click" Margin="5,2" Width="150"/>
+        <Button Click="Button_Click_1" Content="gg"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,23 @@
+﻿<Window x:Class="bk654.PositionAtWorkFolder.DataTablePosAtWork"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bk654.PositionAtWorkFolder"
+        mc:Ignorable="d"
+        Title="DataTablePosAtWork" Height="450" Width="800">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="updatePosButton" Click="UpdatePosButton_Click" Content="изменить должность" Margin="25 5 25 0"/>
+            <Button x:Name="positionAtWorkButton" Click="PositionAtWork_Click" Content="добавить должность" Margin="15 5 25 0"/>
+            <Button x:Name="deletePositionAtWorkButton" Click="DeletePositionAtWorkButton_Click" Content="удалить должность" Margin="15 5 25 0"/>
+        </StackPanel>
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Position ID" Binding="{Binding Path=PositionId}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" />
+                <DataGridTextColumn Header="Salary per Hour" Binding="{Binding Path=SalaryPerHour}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</Window>

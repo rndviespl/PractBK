@@ -1,0 +1,28 @@
+﻿<Window x:Class="bk654.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bk654.WorkerFolder"
+        mc:Ignorable="d"
+        Title="Window2" Height="650" Width="800">
+    <StackPanel>
+       <Label Content="введите фамилию работника" Margin="0 5 0 5"/>
+        <TextBox x:Name="textBoxSurname" Text="Surname" Margin="0 0 0 5"/>
+        <Label Content="введите имя работника" Margin="0 0 0 5" />
+        <TextBox x:Name="textBoxName" Text="Name" Margin="0 0 0 5"/>
+        <Label Content="введите отчество работника" Margin="0 0 0 5"/>
+        <TextBox x:Name="textBoxPatronymic" Text="Patronymic" Margin="0 0 0 5"/>
+        <Label Content="ресторан работника" Margin="0 0 0 5"/>
+        <TextBox x:Name="restaurantWorker" Text="restaurantId" Margin="0 0 0 5"/>
+        <Label Content="позиция работника" Margin="0 0 0 5"/>
+        <TextBox x:Name="positionWorker" Text="positionId" Margin="0 0 0 5"/>
+        <Label Content="дата приема сотрудника" Margin="0 0 0 5"/>
+        <DatePicker x:Name="datePickerStartDate" Margin="0 0 0 5"/>
+        <Label Content="дата увольнения сотрудника" Margin="0 0 0 5"/>
+        <DatePicker x:Name="datePickerEndDate" Margin="0 0 0 5"/>
+        <Label Content="причина увольнения" Margin="0 0 0 5"/>
+        <TextBox x:Name="textBoxDismissalReason" Text="Dismissal Reason" Margin="0 0 0 5"/>
+        <Button Content="Submit" Click="Button_Click" Margin="0 5 0 5" Width="100"/>
+    </StackPanel>
+</Window>

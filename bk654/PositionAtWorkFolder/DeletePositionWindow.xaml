@@ -1,0 +1,14 @@
+﻿<Window x:Class="bk654.PositionAtWorkFolder.DeletePositionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bk654.PositionAtWorkFolder"
+        mc:Ignorable="d"
+        Title="DeletePositionWindow" Height="150" Width="300">
+    <StackPanel>
+        <Label Content="введите id должности которую хотите удалить" Margin="0 5 0 5"/>
+        <TextBox x:Name="deletePositionTextBox" Margin="0 5 0 5"/>
+        <Button x:Name="deletePositionButton" Click="DeletePositionButton_Click" Content="delete" Margin="0 5 0 5"/>
+    </StackPanel>
+</Window>

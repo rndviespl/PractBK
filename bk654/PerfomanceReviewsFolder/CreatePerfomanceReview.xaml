@@ -1,0 +1,27 @@
+﻿<Window x:Class="bk654.PerfomanceReviewsFolder.CreatePerfomanceReview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bk654.PerfomanceReviewsFolder"
+        mc:Ignorable="d"
+        Title="CreatePerfomanceReview" Height="450" Width="800">
+    <StackPanel HorizontalAlignment="Center">
+
+        <Label Content="Worker ID:" Margin="5" />
+        <TextBox Margin="5" Width="200" x:Name="WorkerIdTextBox" />
+
+        <Label Content="Reviewer Name:" Margin="5" />
+        <TextBox Margin="5" Width="200" x:Name="ReviewerNameTextBox" TextChanged="ReviewerNameTextBox_TextChanged" />
+
+        <Label Content="Review Date:" Margin="5" />
+        <DatePicker Margin="5" Width="200" x:Name="ReviewDatePicker" />
+
+        <Label Content="Performance Rating:" Margin="5" />
+        <TextBox Margin="5" Width="200" x:Name="PerformanceRatingTextBox" TextChanged="CommentsTextBox_TextChanged"/>
+
+        <Label Content="Comments:" Margin="5" />
+        <TextBox  Margin="5" Width="200" x:Name="CommentsTextBox" />
+        <Button Content="добавить" x:Name="addReviewButton" Click="addReviewButton_Click" Margin="5"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,18 @@
+﻿<Window x:Class="bk654.PositionAtWorkFolder.UpdatePos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bk654.PositionAtWorkFolder"
+        mc:Ignorable="d"
+        Title="UpdatePos" Height="350" Width="450">
+    <StackPanel>
+        <Label Content="id должности" Margin="5"/>
+        <TextBox x:Name="idOldPosition" Margin="5"/>
+        <Label Content="новое название" Margin="5"/>
+        <TextBox x:Name="newName" Margin="5"/>
+        <Label Content="новая почасовая оплата" Margin="5"/>
+        <TextBox x:Name="newSalary" Margin="5"/>
+        <Button Click="Button_Click" Content="Click" Width="100" Margin="5"/>
+    </StackPanel>
+</Window>

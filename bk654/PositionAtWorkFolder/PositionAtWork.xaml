@@ -1,0 +1,17 @@
+﻿<Window x:Class="bk654.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bk654.PositionAtWorkFolder"
+        mc:Ignorable="d"
+        Title="Window1" Height="350" Width="450">
+    
+        <StackPanel>
+        <Label Content="название должности" Margin="5"/>
+        <TextBox x:Name="textBoxName" Margin="5"/>
+        <Label Content="зарплата в час на этой должности" Margin="5"/>
+        <TextBox x:Name="textBoxSalary" Margin="5" />
+        <Button x:Name="execPos" Content="Click" Click="ExecPos_Click" Margin="5" Width="100" ></Button>
+    </StackPanel>
+</Window>
