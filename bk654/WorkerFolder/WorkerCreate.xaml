@@ -8,11 +8,11 @@
         Title="Window2" Height="650" Width="800">
     <StackPanel>
        <Label Content="введите фамилию работника" Margin="0 5 0 5"/>
-        <TextBox x:Name="textBoxSurname" Text="Surname" Margin="0 0 0 5"/>
+        <TextBox x:Name="textBoxSurname" Text="Surname" Margin="0 0 0 5" MaxLength="20"/>
         <Label Content="введите имя работника" Margin="0 0 0 5" />
-        <TextBox x:Name="textBoxName" Text="Name" Margin="0 0 0 5"/>
+        <TextBox x:Name="textBoxName" Text="Name" Margin="0 0 0 5" MaxLength="20"/>
         <Label Content="введите отчество работника" Margin="0 0 0 5"/>
-        <TextBox x:Name="textBoxPatronymic" Text="Patronymic" Margin="0 0 0 5"/>
+        <TextBox x:Name="textBoxPatronymic" Text="Patronymic" Margin="0 0 0 5" MaxLength="20"/>
         <Label Content="ресторан работника" Margin="0 0 0 5"/>
         <TextBox x:Name="restaurantWorker" Text="restaurantId" Margin="0 0 0 5"/>
         <Label Content="позиция работника" Margin="0 0 0 5"/>
@@ -22,7 +22,7 @@
         <Label Content="дата увольнения сотрудника" Margin="0 0 0 5"/>
         <DatePicker x:Name="datePickerEndDate" Margin="0 0 0 5"/>
         <Label Content="причина увольнения" Margin="0 0 0 5"/>
-        <TextBox x:Name="textBoxDismissalReason" Text="Dismissal Reason" Margin="0 0 0 5"/>
+        <TextBox x:Name="textBoxDismissalReason" Text="Dismissal Reason" Margin="0 0 0 5" MaxLength="100"/>
         <Button Content="Submit" Click="Button_Click" Margin="0 5 0 5" Width="100"/>
     </StackPanel>
 </Window>

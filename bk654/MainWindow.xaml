@@ -12,6 +12,6 @@
         <Button  x:Name="perfomanceButton" VerticalAlignment="Bottom" Content="отзывы о сотрудниках" Click="PerfomanceButton_Click" Margin="5,2" Width="150"/>
         <Button  x:Name="workShiftData" VerticalAlignment="Bottom" Content="смены работников" Click="Table3_Click" Margin="5,2" Width="150"/>
         <Button x:Name="viewPositionAtWorkData" VerticalAlignment="Bottom" Content="должности" Click="Table1_Click" Margin="5,2" Width="150"/>
-        <!--<Button Click="Button_Click_1" Content="gg"/>-->
+        <!--<Button Click="Button_Click" Content="gg"/>-->
     </StackPanel>
 </Window>

@@ -27,7 +27,7 @@
                     <TextBox x:Name="dateMinEndTextBox" Width="100" />
                 </StackPanel>
             </StackPanel>
-            <TextBox x:Name="textBoxDescriptionManualEntry" Text="Description" Height="25" Width="500" HorizontalAlignment="Center"/>
+            <TextBox x:Name="textBoxDescriptionManualEntry" Text="Description" Height="25" Width="500" HorizontalAlignment="Center" MaxLength="45"/>
             <Button x:Name="createWorkShift" Content="Submit" Click="CreateWorkShift_Click" Margin="25" Width="150"/>
         </StackPanel>
     </Grid>

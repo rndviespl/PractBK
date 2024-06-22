@@ -94,16 +94,25 @@ namespace bk654.WorkerFolder
         }
         private void ShowWorkedHours_Click(object sender, RoutedEventArgs e)
         {
-            var selectedWorker = (Worker)dataGrid.SelectedItem;
-            List<WorkShift> shiftsForSelectedWorker = dbContext.WorkShifts.OrderBy(ws => ws.WorkerId).Where(ws => ws.WorkerId == selectedWorker.WorkerId).ToList();
-            List<PositionAtWork> positions = dbContext.PositionAtWorks.ToList(); // Получаем список должностей
+            try
+            {
+                var selectedWorker = (Worker)dataGrid.SelectedItem;
+                List<WorkShift> shiftsForSelectedWorker = dbContext.WorkShifts.OrderBy(ws => ws.WorkerId).Where(ws => ws.WorkerId == selectedWorker.WorkerId).ToList();
+                List<PositionAtWork> positions = dbContext.PositionAtWorks.ToList(); // Получаем список должностей
 
-            ShowWorkedHoursForWorker(selectedWorker, shiftsForSelectedWorker, positions);
+                ShowWorkedHoursForWorker(selectedWorker, shiftsForSelectedWorker, positions);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("произошла ошибка: " + ex.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void ShowWorkedHoursForWorker(Worker worker1, List<WorkShift> workShifts, List<PositionAtWork> positions)
         {
-            var halfMonthShifts = workShifts.GroupBy(ws => new { Year = ws.StartShift.Year, Month = ws.StartShift.Month, Half = ws.StartShift.Day <= 15 ? "Первая" : "Вторая" })
+            var halfMonthShifts = workShifts.GroupBy(ws => new { Year = ws.StartShift.Year, Month = ws.StartShift.Month,
+                Half = ws.StartShift.Day <= 15 ? "Первая" : "Вторая" })
                                             .OrderBy(g => g.Key.Year).ThenBy(g => g.Key.Month).ThenBy(g => g.Key.Half)
                                             .Select(group => new
                                             {
@@ -120,28 +129,36 @@ namespace bk654.WorkerFolder
             workedHoursDataGrid.ItemsSource = halfMonthShifts;
 
             Window workedHoursWindow = new Window();
-            workedHoursWindow.Title = $"Отработанные часы для {worker1.Name} {worker1.Surname} {worker1.Patronymic} (Сотрудник ID: {worker1.WorkerId}, Ресторан ID: {worker1.RestaurantId})";
+            workedHoursWindow.Title = $"Отработанные часы для {worker1.Name} {worker1.Surname} {worker1.Patronymic}" +
+                $" (Сотрудник ID: {worker1.WorkerId}, Ресторан ID: {worker1.RestaurantId})";
             workedHoursWindow.Content = workedHoursDataGrid;
             workedHoursWindow.ShowDialog();
         }
 
         private void ShowFormButton_Click(object sender, RoutedEventArgs e)
         {
-
-            var selectedWorker = (Worker)dataGrid.SelectedItem;
-            if (selectedWorker != null)
+            try
             {
-                var selectedReview = dbContext.PerformanceReviewSummaries.FirstOrDefault(w => w.WorkerId == selectedWorker.WorkerId);
-                if (selectedReview != null)
+                var selectedWorker = dataGrid.SelectedItem as Worker;
+                if (selectedWorker != null)
                 {
-                    ShowWorkedReviewSummary(selectedReview, selectedWorker);
-                }
-                else
-                {
-                    MessageBox.Show("Отзывы о выбранном сотруднике не найдены.", "Отсутствует информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                    var selectedReview = dbContext.PerformanceReviewSummaries.FirstOrDefault(w => w.WorkerId == selectedWorker.WorkerId);
+                    if (selectedReview != null)
+                    {
+                        ShowWorkedReviewSummary(selectedReview, selectedWorker);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Отзывы о выбранном сотруднике не найдены.", "Отсутствует информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
 
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("произошла ошибка: " + ex.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void ShowWorkedReviewSummary(PerformanceReviewSummary selectedWorker, Worker worker1)
@@ -151,25 +168,25 @@ namespace bk654.WorkerFolder
                 var performanceSummary = dbContext.PerformanceReviewSummaries.Where(summary => summary.WorkerId == selectedWorker.WorkerId).Select(summary => new
                 {
                     WorkerId = summary.WorkerId,
-                    TotalRating = summary.AvgRating != null ? Math.Round(summary.AvgRating.Value, 2) : 0,
-                    MaxRating = summary.MaxRating ?? 0,
-                    MinRating = summary.MinRating ?? 0
+                    TotalRating = summary.AvgRating,
+                    MaxRating = summary.MaxRating,
+                    MinRating = summary.MinRating
                 }).ToList();
 
-                    DataGrid perfomanceSummaryDataGrid = new DataGrid();
-                    perfomanceSummaryDataGrid.ItemsSource = performanceSummary;
+                DataGrid perfomanceSummaryDataGrid = new DataGrid();
+                perfomanceSummaryDataGrid.ItemsSource = performanceSummary;
 
-                    Window perfomanceSummaryWindow = new Window();
-                    perfomanceSummaryWindow.Title = $"отзывы о сотруднике {worker1.Name} {worker1.Surname} {worker1.Patronymic} (Сотрудник ID: {worker1.WorkerId}, Ресторан ID: {worker1.RestaurantId}) ";
-
-                    perfomanceSummaryWindow.Content = perfomanceSummaryDataGrid;
+                Window perfomanceSummaryWindow = new Window();
+                perfomanceSummaryWindow.Title = $"отзывы о сотруднике {worker1.Name} {worker1.Surname} {worker1.Patronymic} (Сотрудник ID: {worker1.WorkerId}, Ресторан ID: {worker1.RestaurantId}) ";
+                perfomanceSummaryWindow.MaxHeight = 300;
+                perfomanceSummaryWindow.MaxWidth = 450;
+                perfomanceSummaryWindow.Content = perfomanceSummaryDataGrid;
                 perfomanceSummaryWindow.Show();
-            }           
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("произошла ошибка: " + ex.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
     }
 }

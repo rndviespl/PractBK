@@ -26,7 +26,7 @@ namespace bk654.PerfomanceReviewsFolder
         public CreatePerfomanceReview()
         {
             InitializeComponent();
-           dbContext = new ApplicationContext();
+            dbContext = new ApplicationContext();
         }
         private void ReviewerNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -46,20 +46,25 @@ namespace bk654.PerfomanceReviewsFolder
         }
         private void addReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            PerformanceReview performanceReview = new PerformanceReview
-            {
-                WorkerId = int.Parse(WorkerIdTextBox.Text),
-                ReviewerName = ReviewerNameTextBox.Text,
-                ReviewDate = ReviewDatePicker.SelectedDate ?? DateTime.Now,
-                PerformanceRating =int.Parse(PerformanceRatingTextBox.Text),
-                Comments = CommentsTextBox.Text
-            };
-
-            dbContext.PerformanceReviews.Add(performanceReview);    
-            dbContext.SaveChanges();
             try
             {
+                if (int.TryParse(PerformanceRatingTextBox.Text.Substring(0, 2), out int rating))
+                {
+                    // Create and initialize the performanceReview object
+                    PerformanceReview performanceReview = new PerformanceReview
+                    {
+                        WorkerId = int.Parse(WorkerIdTextBox.Text),
+                        ReviewerName = ReviewerNameTextBox.Text,
+                        ReviewDate = ReviewDatePicker.SelectedDate ?? DateTime.Now,
+                        PerformanceRating = rating, // Use the parsed rating
+                        Comments = CommentsTextBox.Text
+                    };
+                    dbContext.PerformanceReviews.Add(performanceReview);
+                    dbContext.SaveChanges();
+                }
+
                 MessageBox.Show("отзыв успешно добавлен", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
             catch (Exception ex)
             {

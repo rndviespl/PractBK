@@ -161,18 +161,27 @@ namespace bk654.PerfomanceReviewsFolder
 
         public void DeleteWorkShift(int reviewId)
         {
-            PerformanceReview perfomanceToDelete = dbContext.PerformanceReviews.FirstOrDefault(w => w.ReviewId == reviewId);
-            if (perfomanceToDelete != null)
+            try
             {
-                dbContext.Remove(perfomanceToDelete);
-                dbContext.SaveChanges();
+                PerformanceReview perfomanceToDelete = dbContext.PerformanceReviews.FirstOrDefault(w => w.ReviewId == reviewId);
+                if (perfomanceToDelete != null)
+                {
+                    dbContext.Remove(perfomanceToDelete);
+                    dbContext.SaveChanges();
 
-                MessageBox.Show("смена работника успешно удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("смена работника успешно удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("смена работника не найдена", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("смена работника не найдена", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                MessageBox.Show("у вашей роли нет такой привелегии", "ошибка доступа", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
 
         private void DeleteShiftButton_Click(object sender, RoutedEventArgs e)

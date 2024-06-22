@@ -9,9 +9,9 @@
     
         <StackPanel>
         <Label Content="название должности" Margin="5"/>
-        <TextBox x:Name="textBoxName" Margin="5"/>
+        <TextBox x:Name="textBoxName" Margin="5" MaxLength="35"/>
         <Label Content="зарплата в час на этой должности" Margin="5"/>
-        <TextBox x:Name="textBoxSalary" Margin="5" />
+        <TextBox x:Name="textBoxSalary" Margin="5" MaxLength="3"/>
         <Button x:Name="execPos" Content="Click" Click="ExecPos_Click" Margin="5" Width="100" ></Button>
     </StackPanel>
 </Window>

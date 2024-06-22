@@ -1,20 +1,8 @@
 ﻿using bk654.Data;
 using bk654.Models;
-using bk654.WorkShiftFolder;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace bk654.RestaurantFolder
 {
@@ -22,6 +10,7 @@ namespace bk654.RestaurantFolder
     {
         private ApplicationContext dbContext;
         private List<Restaurant> _restaurants;
+        private List<Worker> _workers;
         private int _currentPage = 1;
         private int _pageSize;
         private int _totalPages;
@@ -39,21 +28,23 @@ namespace bk654.RestaurantFolder
         {
             try
             {
-                IQueryable<Restaurant> query = dbContext.Restaurants;
+                IQueryable<Restaurant> query = dbContext.Restaurants.Include(r => r.Workers); ;
                 if (!string.IsNullOrWhiteSpace(searchCriteria))
-                { 
-                 var keywords = searchCriteria.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                {
+                    var keywords = searchCriteria.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var keyword in keywords)
                     {
-                        query = query.Where(w=>w.RestaurantCode.ToLower().Contains(keyword) || w.Mall.ToLower().Contains(keyword)|| w.RestaurantId.Equals(keyword));
+                        query = query.Where(w => w.RestaurantCode.ToLower().Contains(keyword) || w.Mall.ToLower().Contains(keyword)
+                        || w.RestaurantId.Equals(keyword));
                     }
                 }
                 int totalRecords = query.Count();
                 _totalPages = (int)Math.Ceiling((double)totalRecords / _pageSize);
-                int offset = (pageNumber - 1 ) * _pageSize;   
+                int offset = (pageNumber - 1) * _pageSize;
 
-                _restaurants = query.OrderBy(w=> w.RestaurantId).Skip(offset).Take(_pageSize).ToList();
+                _restaurants = query.OrderBy(w => w.RestaurantId).Skip(offset).Take(_pageSize).ToList();
                 dataGrid.ItemsSource = _restaurants;
+
             }
             catch (Exception ex)
             {
@@ -115,7 +106,7 @@ namespace bk654.RestaurantFolder
                     RestaurantCode = selectedRow.RestaurantCode,
                     Town = selectedRow.Town,
                     Address = selectedRow.Address,
-                    Mall = selectedRow.Mall
+                    Mall = selectedRow.Mall,
                     // Дополнительные поля смены
                 };
 
@@ -128,29 +119,46 @@ namespace bk654.RestaurantFolder
 
         public void DeleteRestaurant(int restaurantId)
         {
-            Restaurant restaurantToDelete = dbContext.Restaurants.FirstOrDefault(w => w.RestaurantId == restaurantId);
-            if (restaurantToDelete != null)
+            try
             {
-                dbContext.Remove(restaurantToDelete);
-                dbContext.SaveChanges();
+                Restaurant restaurantToDelete = dbContext.Restaurants.FirstOrDefault(w => w.RestaurantId == restaurantId);
+                if (restaurantToDelete != null)
+                {
+                    dbContext.Remove(restaurantToDelete);
+                    dbContext.SaveChanges();
 
-                MessageBox.Show("ресторан успешно удален", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("ресторан успешно удален", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("ресторан не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                LoadData(_currentPage, "worker_id");
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("ресторан не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                MessageBox.Show("у вашей роли нет такой привелегии", "ошибка доступа", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            LoadData(_currentPage, "worker_id");
+
         }
 
         private void DeleteShiftButton_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
             var button = sender as Button;
             var selectedRow = (button.DataContext as dynamic);
             int restaurantId = selectedRow.RestaurantId;
             DeleteRestaurant(restaurantId);
             dataGrid.Items.Refresh();
             LoadData(_currentPage, "worker_id");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("у вашей роли нет такой привелегии", "ошибка доступа", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void AddRestaurantButton_Click(object sender, RoutedEventArgs e)
@@ -179,7 +187,7 @@ namespace bk654.RestaurantFolder
                 }
                 else
                 {
-                    MessageBox.Show("Отзывы о выбранном сотруднике не найдены.", "Отсутствует информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("сотрудники в выбранном ресторане не найдены.", "Отсутствует информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
@@ -203,9 +211,7 @@ namespace bk654.RestaurantFolder
                             Surname = w.Surname,
                             Name = w.Name,
                             Patronymic = w.Patronymic,
-                            StartDate = w.StartDate,
-                            EndDate = w.EndDate,
-                            DismissalReason = w.DismissalReason
+                            StartDate = w.StartDate
                         })
                         .ToList();
 
@@ -214,7 +220,7 @@ namespace bk654.RestaurantFolder
 
                     Window workersInRestaurantWindow = new Window();
                     workersInRestaurantWindow.Title = $"работников в ресторане {selectedRestaurant.RestaurantId},{selectedRestaurant.Town}," +
-                        $"{selectedRestaurant.Address},{selectedRestaurant.Mall},{selectedRestaurant.EmployeesCount}";
+                        $"{selectedRestaurant.Address},{selectedRestaurant.Mall}, количество: {selectedRestaurant.WorkersCount} ";
 
                     workersInRestaurantWindow.Content = workersInRestaurantDataGrid;
                     workersInRestaurantWindow.Show();
@@ -231,3 +237,5 @@ namespace bk654.RestaurantFolder
         }
     }
 }
+
+

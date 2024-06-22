@@ -10,13 +10,13 @@
         
 
         <Label Content="Фамилия:" />
-        <TextBox x:Name="textBoxSurname" Margin="0 5 0 5"/>
+        <TextBox x:Name="textBoxSurname" Margin="0 5 0 5" MaxLength="20"/>
         
         <Label Content="Имя:" />
-        <TextBox x:Name="textBoxName"  Margin="0 5 0 5"/>
+        <TextBox x:Name="textBoxName"  Margin="0 5 0 5" MaxLength="20"/>
         
         <Label Content="Отчество:"/>
-        <TextBox x:Name="textBoxPatronymic" Margin="0 5 0 5"/>
+        <TextBox x:Name="textBoxPatronymic" Margin="0 5 0 5" MaxLength="20"/>
         
         <Label Content="ID Позиции:" />
         <TextBox x:Name="positionWorker"  Margin="0 5 0 5"/>
@@ -31,7 +31,7 @@
         <DatePicker x:Name="datePickerEndDate"  Margin="0 5 0 5"/>
         
         <Label Content="Причина увольнения:" />
-        <TextBox x:Name="textBoxDismissalReason"  Margin="0 5 0 5"/>
+        <TextBox x:Name="textBoxDismissalReason"  Margin="0 5 0 5" MaxLength="100"/>
         
         <StackPanel  Margin="5">
             <Button Content="Обновить данные работника" Click="SaveButton_Click"  />

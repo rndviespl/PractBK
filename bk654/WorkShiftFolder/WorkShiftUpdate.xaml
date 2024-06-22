@@ -22,7 +22,7 @@
             <Label Content="Минуты:"/>
             <TextBox x:Name="dateMinEndTextBox" Width="100"/>
         </StackPanel>
-        <TextBox x:Name="textBoxDescriptionManualEntry" Text="Описание" Height="25" Width="300" Margin="5"/>
+        <TextBox x:Name="textBoxDescriptionManualEntry" Text="Описание" Height="25" Width="300" Margin="5" MaxLength="45"/>
         <Button Content="Применить изменения" Click="ApplyChanges_Click" Width="150" Margin="10"/>
     </StackPanel>
 </Window>

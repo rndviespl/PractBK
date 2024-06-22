@@ -12,16 +12,16 @@
         <TextBox Margin="5" Width="200" x:Name="WorkerIdTextBox" />
 
         <Label Content="Reviewer Name:" Margin="5" />
-        <TextBox Margin="5" Width="200" x:Name="ReviewerNameTextBox" TextChanged="ReviewerNameTextBox_TextChanged" />
+        <TextBox Margin="5" Width="200" x:Name="ReviewerNameTextBox" MaxLength="25" />
 
         <Label Content="Review Date:" Margin="5" />
         <DatePicker Margin="5" Width="200" x:Name="ReviewDatePicker" />
 
         <Label Content="Performance Rating:" Margin="5" />
-        <TextBox Margin="5" Width="200" x:Name="PerformanceRatingTextBox" TextChanged="CommentsTextBox_TextChanged"/>
+        <TextBox Margin="5" Width="200" x:Name="PerformanceRatingTextBox" MaxLength="2"/>
 
         <Label Content="Comments:" Margin="5" />
-        <TextBox  Margin="5" Width="200" x:Name="CommentsTextBox" />
-        <Button Content="добавить" x:Name="addReviewButton" Click="addReviewButton_Click" Margin="5"/>
+        <TextBox  Margin="5" Width="200" x:Name="CommentsTextBox" MaxLength="250"/>
+        <Button Content="добавить" x:Name="addReviewButton" Click="addReviewButton_Click" Margin="5" />
     </StackPanel>
 </Window>

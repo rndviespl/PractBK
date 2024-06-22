@@ -30,7 +30,9 @@ namespace bk654.WorkerFolder
         }
         private void DeleteWorkerById(int workerId)
         {
-            // Находим работника в базе данных по ID
+            try
+            {
+// Находим работника в базе данных по ID
             Worker workerToDelete = dbContext.Workers.FirstOrDefault(w => w.WorkerId == workerId);
 
             if (workerToDelete != null)
@@ -44,6 +46,13 @@ namespace bk654.WorkerFolder
             {
                 MessageBox.Show("Работник не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("у вашей роли нет такой привелегии", "ошибка доступа", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void DeleteWorkerByIdButton_Click(object sender, RoutedEventArgs e)

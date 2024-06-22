@@ -45,7 +45,6 @@ namespace bk654.WorkShiftFolder
                         matchedWorkers = matchedWorkers.Where(worker =>
                             worker.Surname.ToLower().Contains(keywordLower) ||
                             worker.Name.ToLower().Contains(keywordLower)
-                        // || worker.WorkerId.Equals(int.Parse(keywordLower))
                         );
                     }
                 }
@@ -191,7 +190,6 @@ namespace bk654.WorkShiftFolder
                     StartShift = selectedRow.StartShift,
                     EndShift = selectedRow.EndShift,
                     DescriptionManualEntry = selectedRow.DescriptionManualEntry
-                    // Дополнительные поля смены
                 };
 
                 // Открываем окно для редактирования смены

@@ -13,7 +13,7 @@ public partial class PerformanceReview
 
     public DateTime ReviewDate { get; set; }
 
-    public int PerformanceRating { get; set; }
+    public decimal PerformanceRating { get; set; }
 
     public string Comments { get; set; } = null!;
 

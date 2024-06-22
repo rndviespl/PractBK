@@ -15,7 +15,7 @@ public partial class Restaurant
 
     public string? Mall { get; set; }
 
-    public int? EmployeesCount { get; set; }
+    public int? WorkersCount { get; set; }
 
     public virtual ICollection<Worker> Workers { get; set; } = new List<Worker>();
 }

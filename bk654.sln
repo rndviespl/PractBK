@@ -7,9 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bk654", "bk654\bk654.csproj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{701E1EBF-6D52-4733-A5B7-C81FEFE28CAA}"
 	ProjectSection(SolutionItems) = preProject
-		TextFile1.txt = TextFile1.txt
+		ClassGeneration.cs = ClassGeneration.cs
 		generates.txt = generates.txt
+		TextFile1.txt = TextFile1.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bk654Tests", "bk654Tests\bk654Tests.csproj", "{09089841-A3E0-4954-B5C8-73D6F9158F51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +24,10 @@ Global
 		{4881CC43-6075-4A7E-B4B1-EE9CFDDA1D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4881CC43-6075-4A7E-B4B1-EE9CFDDA1D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4881CC43-6075-4A7E-B4B1-EE9CFDDA1D05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09089841-A3E0-4954-B5C8-73D6F9158F51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09089841-A3E0-4954-B5C8-73D6F9158F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09089841-A3E0-4954-B5C8-73D6F9158F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09089841-A3E0-4954-B5C8-73D6F9158F51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

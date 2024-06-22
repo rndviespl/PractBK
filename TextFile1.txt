@@ -18,3 +18,6 @@ Scaffold-DbContext 'Data Source=127.0.0.1; uid=root;pwd=root; database=bk654;' -
 
             отдельная датагрид у работников одного ресторана и указаны смены по дням или по часам
             можно редактировать удалять смены или создавать если самостоятельно проставлять смену то объяснять причину
+
+          user  first_level_user_access
+          pwd   firstlvlaccess1

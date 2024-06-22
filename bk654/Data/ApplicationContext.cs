@@ -19,6 +19,8 @@ public partial class ApplicationContext : DbContext
 
     public virtual DbSet<DeletedWorker> DeletedWorkers { get; set; }
 
+    public virtual DbSet<Efmigrationshistory> Efmigrationshistories { get; set; }
+
     public virtual DbSet<PerformanceReview> PerformanceReviews { get; set; }
 
     public virtual DbSet<PerformanceReviewSummary> PerformanceReviewSummaries { get; set; }
@@ -30,6 +32,8 @@ public partial class ApplicationContext : DbContext
     public virtual DbSet<WorkShift> WorkShifts { get; set; }
 
     public virtual DbSet<Worker> Workers { get; set; }
+
+    public virtual DbSet<WorkersInfoView> WorkersInfoViews { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -102,6 +106,16 @@ public partial class ApplicationContext : DbContext
                 .HasConstraintName("fk_deleted_workers_worker1");
         });
 
+        modelBuilder.Entity<Efmigrationshistory>(entity =>
+        {
+            entity.HasKey(e => e.MigrationId).HasName("PRIMARY");
+
+            entity.ToTable("__efmigrationshistory");
+
+            entity.Property(e => e.MigrationId).HasMaxLength(150);
+            entity.Property(e => e.ProductVersion).HasMaxLength(32);
+        });
+
         modelBuilder.Entity<PerformanceReview>(entity =>
         {
             entity.HasKey(e => e.ReviewId).HasName("PRIMARY");
@@ -114,7 +128,9 @@ public partial class ApplicationContext : DbContext
             entity.Property(e => e.Comments)
                 .HasMaxLength(250)
                 .HasColumnName("comments");
-            entity.Property(e => e.PerformanceRating).HasColumnName("performance_rating");
+            entity.Property(e => e.PerformanceRating)
+                .HasPrecision(2)
+                .HasColumnName("performance_rating");
             entity.Property(e => e.ReviewDate)
                 .HasColumnType("datetime")
                 .HasColumnName("review_date");
@@ -136,10 +152,19 @@ public partial class ApplicationContext : DbContext
                 .ToView("performance_review_summary");
 
             entity.Property(e => e.AvgRating)
-                .HasPrecision(14, 4)
+                .HasPrecision(6, 4)
                 .HasColumnName("avg_rating");
-            entity.Property(e => e.MaxRating).HasColumnName("max_rating");
-            entity.Property(e => e.MinRating).HasColumnName("min_rating");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(72)
+                .HasColumnName("full_name")
+                .UseCollation("utf8_general_ci")
+                .HasCharSet("utf8");
+            entity.Property(e => e.MaxRating)
+                .HasPrecision(2)
+                .HasColumnName("max_rating");
+            entity.Property(e => e.MinRating)
+                .HasPrecision(2)
+                .HasColumnName("min_rating");
             entity.Property(e => e.WorkerId).HasColumnName("worker_id");
         });
 
@@ -172,7 +197,6 @@ public partial class ApplicationContext : DbContext
             entity.Property(e => e.Address)
                 .HasMaxLength(100)
                 .HasColumnName("address");
-            entity.Property(e => e.EmployeesCount).HasColumnName("employees_count");
             entity.Property(e => e.Mall)
                 .HasMaxLength(100)
                 .HasColumnName("mall");
@@ -182,6 +206,7 @@ public partial class ApplicationContext : DbContext
             entity.Property(e => e.Town)
                 .HasMaxLength(25)
                 .HasColumnName("town");
+            entity.Property(e => e.WorkersCount).HasColumnName("workers_count");
         });
 
         modelBuilder.Entity<WorkShift>(entity =>
@@ -261,6 +286,31 @@ public partial class ApplicationContext : DbContext
                 .HasForeignKey(d => d.RestaurantId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_worker_restaurant1");
+        });
+
+        modelBuilder.Entity<WorkersInfoView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("workers_info__view");
+
+            entity.Property(e => e.FullName)
+                .HasMaxLength(72)
+                .HasColumnName("full_name")
+                .UseCollation("utf8_general_ci")
+                .HasCharSet("utf8");
+            entity.Property(e => e.Position)
+                .HasMaxLength(35)
+                .HasColumnName("position")
+                .UseCollation("utf8_general_ci")
+                .HasCharSet("utf8");
+            entity.Property(e => e.RestaurantInfo)
+                .HasMaxLength(238)
+                .HasColumnName("restaurant_info");
+            entity.Property(e => e.StartDate)
+                .HasColumnType("datetime")
+                .HasColumnName("start_date");
+            entity.Property(e => e.WorkerId).HasColumnName("worker_id");
         });
 
         OnModelCreatingPartial(modelBuilder);

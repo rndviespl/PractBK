@@ -1,18 +1,6 @@
 ﻿using bk654.Data;
 using bk654.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace bk654.PositionAtWorkFolder
 {
@@ -30,17 +18,26 @@ namespace bk654.PositionAtWorkFolder
 
         private void DeletePositionById(int positionId)
         {
-            PositionAtWork positionAtWork = dbContext.PositionAtWorks.FirstOrDefault(p => p.PositionId == positionId);
-            if (positionAtWork != null) 
-            { 
-                dbContext.PositionAtWorks.Remove(positionAtWork);
-                dbContext.SaveChanges();
-                MessageBox.Show("должность успешно удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
+            try
             {
-                MessageBox.Show("должность не найдена", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                PositionAtWork positionAtWork = dbContext.PositionAtWorks.FirstOrDefault(p => p.PositionId == positionId);
+                if (positionAtWork != null)
+                {
+                    dbContext.PositionAtWorks.Remove(positionAtWork);
+                    dbContext.SaveChanges();
+                    MessageBox.Show("должность успешно удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("должность не найдена", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("у вашей роли нет такой привелегии", "ошибка доступа", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
 
         }
 

@@ -7,9 +7,11 @@ public partial class PerformanceReviewSummary
 {
     public int WorkerId { get; set; }
 
+    public string? FullName { get; set; }
+
     public decimal? AvgRating { get; set; }
 
-    public int? MaxRating { get; set; }
+    public decimal? MaxRating { get; set; }
 
-    public int? MinRating { get; set; }
+    public decimal? MinRating { get; set; }
 }

@@ -8,13 +8,13 @@
         Title="CreateRestaurant" Height="350" Width="800" MinHeight="350" MinWidth="800" MaxHeight="350" MaxWidth="800">
     <StackPanel Margin="10">
         <Label Content="код ресторана" Margin="2,5"/>
-        <TextBox x:Name="addRestaurantCodeTextBox" Margin="2,5"/>
+        <TextBox x:Name="addRestaurantCodeTextBox" Margin="2,5" MaxLength="10"/>
         <Label Content="город" Margin="2,5"/>
-        <TextBox x:Name="addRestaurantTowntTextBox" Margin="2,5"/>
+        <TextBox x:Name="addRestaurantTowntTextBox" Margin="2,5" MaxLength="25"/>
         <Label Content=" адрес" Margin="2,5"/>
-        <TextBox x:Name="addRestaurantAddressTextBox" Margin="2,5"/>
+        <TextBox x:Name="addRestaurantAddressTextBox" Margin="2,5" MaxLength="100"/>
         <Label Content="торговый центр или его подобие" Margin="2,5"/>
-        <TextBox x:Name="addRestaurantMallTextBox" Margin="2,5"/>
+        <TextBox x:Name="addRestaurantMallTextBox" Margin="2,5" MaxLength="100"/>
         <Button x:Name="addRestaurantButton" Click="addRestaurantButton_Click" Content="добавить ресторан" Width="150" Margin="2,5"/>
     </StackPanel>
 </Window>

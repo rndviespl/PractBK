@@ -20,14 +20,23 @@
             <TextBox x:Name="searchTextBox" Width="200" Margin="2 5 2 5"/>
             <Button Content="Search" Click="SearchButton_Click" Margin="2 0 2 5" Width="70"/>
         </StackPanel>
-        <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" ItemsSource="{Binding Worker}">
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Worker}">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Worker ID" Binding="{Binding WorkerId}" />
+                <DataGridTextColumn Header="Position ID" Binding="{Binding PositionId}" />
+                <DataGridTextColumn Header="Restaurant ID" Binding="{Binding RestaurantId}" />
+                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Patronymic" Binding="{Binding Patronymic}" />
+                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" />
+                <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" />
+                <DataGridTextColumn Header="Dismissal Reason" Binding="{Binding DismissalReason}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="Отработанные часы" Click="ShowWorkedHours_Click"/>
-                                <Button Content="Show Performance Review Summary" Click="ShowFormButton_Click"/>
+                                <Button Content="Show Review" Click="ShowFormButton_Click"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

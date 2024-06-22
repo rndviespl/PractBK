@@ -23,9 +23,15 @@
             </StackPanel>
             <Button x:Name="addRestaurant" Content="добавить ресторан" Click="AddRestaurantButton_Click" Width="130" Height="25" Margin="45,5"/>
         </StackPanel>
-        <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" ItemsSource="{Binding Restaurant}">
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Restaurant}">
         <DataGrid.Columns>
-        <DataGridTemplateColumn>
+                <DataGridTextColumn Header="Restaurant Id" Binding="{Binding RestaurantId}"/>
+                <DataGridTextColumn Header="Restaurant Code" Binding="{Binding RestaurantCode}"/>
+                <DataGridTextColumn Header="Town" Binding="{Binding Town}"/>
+                <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="Mall" Binding="{Binding Mall}"/>
+                <DataGridTextColumn Header="Worker Count" Binding="{Binding WorkersCount}"/>
+                <DataGridTemplateColumn>
             <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
