@@ -1,6 +1,5 @@
 ﻿using bk654.Data;
 using bk654.Models;
-using bk654.WorkerFolder;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -124,20 +123,20 @@ namespace bk654.WorkShiftFolder
             if (int.TryParse(recordsPerPageTextBox.Text, out int recordsPerPage))
             {
                 _pageSize = recordsPerPage;
-                
-                    // Проверяем корректность ввода номера страницы
-                    if (int.TryParse(currentPageTextBox.Text, out int currentPage))
-                    {
-                        _currentPage = currentPage;
-                        LoadDataWorker(searchTextBox.Text);
-                    }
-                    else
-                    {
-                        _currentPage = 1;
-                        LoadDataWorker(searchTextBox.Text);
-                    }
-                 dataGrid.Items.Refresh();
-               
+
+                // Проверяем корректность ввода номера страницы
+                if (int.TryParse(currentPageTextBox.Text, out int currentPage))
+                {
+                    _currentPage = currentPage;
+                    LoadDataWorker(searchTextBox.Text);
+                }
+                else
+                {
+                    _currentPage = 1;
+                    LoadDataWorker(searchTextBox.Text);
+                }
+                dataGrid.Items.Refresh();
+
             }
         }
 
@@ -173,56 +172,85 @@ namespace bk654.WorkShiftFolder
             _currentPage = 1;
             LoadDataWorker(searchTextBox.Text);
         }
-        private WorkShift selectedWorkShift;
 
+        private WorkShift selectedWorkShift;
 
         private void UpdateShiftButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            if (button != null)
+            try
             {
-                var selectedRow = (button.DataContext as dynamic); // Получаем выбранную строку
-
-                // Сохраняем выбранную смену
-                selectedWorkShift = new WorkShift
+                var button = sender as Button;
+                if (button != null)
                 {
-                    WorkShiftId = selectedRow.WorkShiftId,
-                    StartShift = selectedRow.StartShift,
-                    EndShift = selectedRow.EndShift,
-                    DescriptionManualEntry = selectedRow.DescriptionManualEntry
-                };
+                    var selectedRow = (button.DataContext as dynamic); // Получаем выбранную строку
 
-                // Открываем окно для редактирования смены
-                WorkShiftUpdate editWorkShiftWindow = new WorkShiftUpdate(selectedWorkShift);
-                editWorkShiftWindow.ShowDialog();
+                    // Сохраняем выбранную смену
+                    selectedWorkShift = new WorkShift
+                    {
+                        WorkShiftId = selectedRow.WorkShiftId,
+                        StartShift = selectedRow.StartShift,
+                        EndShift = selectedRow.EndShift,
+                        DescriptionManualEntry = selectedRow.DescriptionManualEntry
+                    };
+
+                    // Открываем окно для редактирования смены
+                    WorkShiftUpdate editWorkShiftWindow = new WorkShiftUpdate(selectedWorkShift);
+                    editWorkShiftWindow.ShowDialog();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         public void DeleteWorkShift(int workShiftId)
         {
-            WorkShift workShiftToDelete = dbContext.WorkShifts.FirstOrDefault(w => w.WorkShiftId == workShiftId);
-            if (workShiftToDelete != null)
+            try
             {
-                dbContext.Remove(workShiftToDelete);
-                dbContext.SaveChanges();
+                WorkShift workShiftToDelete = dbContext.WorkShifts.FirstOrDefault(w => w.WorkShiftId == workShiftId);
+                if (workShiftToDelete != null)
+                {
+                    dbContext.Remove(workShiftToDelete);
+                    dbContext.SaveChanges();
+                    MessageBox.Show("смена работника успешно удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("смена работника не найдена", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-                MessageBox.Show("смена работника успешно удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                MessageBox.Show("смена работника не найдена", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
         private void DeleteShiftButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var selectedRow = (button.DataContext as dynamic);
-            int workShiftId = selectedRow.WorkShiftId;
-            DeleteWorkShift(workShiftId);
-            dataGrid.Items.Refresh();
+            try
+            {
+                var button = sender as Button;
+                var selectedRow = (button.DataContext as dynamic);
+                int workShiftId = selectedRow.WorkShiftId;
+                MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите удалить смену у работника?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    DeleteWorkShift(workShiftId);
+                }
+                
+                dataGrid.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
-       
+
         private void СreateWorkShift_Click(object sender, RoutedEventArgs e)
         {
             if (!createWorkShiftWindowOpen)
@@ -241,5 +269,5 @@ namespace bk654.WorkShiftFolder
 
 }
 
-     
+
 

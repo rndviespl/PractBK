@@ -95,26 +95,34 @@ namespace bk654.RestaurantFolder
         private Restaurant _selectedRestaurant;
         private void UpdateRestaurantButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            if (button != null)
+            try
             {
-                var selectedRow = (button.DataContext as dynamic); // Получаем выбранную строку
-
-                // Сохраняем выбранный ресторан
-                _selectedRestaurant = new Restaurant
+                var button = sender as Button;
+                if (button != null)
                 {
-                    RestaurantCode = selectedRow.RestaurantCode,
-                    Town = selectedRow.Town,
-                    Address = selectedRow.Address,
-                    Mall = selectedRow.Mall,
-                    // Дополнительные поля смены
-                };
+                    var selectedRow = (button.DataContext as dynamic); // Получаем выбранную строку
 
-                // Открываем окно для редактирования смены
-                UpdateRestaurant editRestaurantWindow = new UpdateRestaurant(_selectedRestaurant);
-                editRestaurantWindow.ShowDialog();
+                    // Сохраняем выбранный ресторан
+                    _selectedRestaurant = new Restaurant
+                    {
+                        RestaurantCode = selectedRow.RestaurantCode,
+                        Town = selectedRow.Town,
+                        Address = selectedRow.Address,
+                        Mall = selectedRow.Mall,
+                        // Дополнительные поля смены
+                    };
+
+                    // Открываем окно для редактирования смены
+                    UpdateRestaurant editRestaurantWindow = new UpdateRestaurant(_selectedRestaurant);
+                    editRestaurantWindow.ShowDialog();
+                }
+                LoadData(_currentPage, "worker_id");
             }
-            LoadData(_currentPage, "worker_id");
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         public void DeleteRestaurant(int restaurantId)
@@ -147,12 +155,12 @@ namespace bk654.RestaurantFolder
         {
             try
             {
-            var button = sender as Button;
-            var selectedRow = (button.DataContext as dynamic);
-            int restaurantId = selectedRow.RestaurantId;
-            DeleteRestaurant(restaurantId);
-            dataGrid.Items.Refresh();
-            LoadData(_currentPage, "worker_id");
+                var button = sender as Button;
+                var selectedRow = (button.DataContext as dynamic);
+                int restaurantId = selectedRow.RestaurantId;
+                DeleteRestaurant(restaurantId);
+                dataGrid.Items.Refresh();
+                LoadData(_currentPage, "worker_id");
             }
             catch (Exception ex)
             {
@@ -192,7 +200,7 @@ namespace bk654.RestaurantFolder
             }
             else
             {
-                MessageBox.Show("Invalid selection. Please select a worker.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Invalid selection. Please select a restaurant.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

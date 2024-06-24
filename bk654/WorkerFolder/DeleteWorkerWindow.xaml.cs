@@ -32,7 +32,7 @@ namespace bk654.WorkerFolder
         {
             try
             {
-// Находим работника в базе данных по ID
+            // Находим работника в базе данных по ID
             Worker workerToDelete = dbContext.Workers.FirstOrDefault(w => w.WorkerId == workerId);
 
             if (workerToDelete != null)

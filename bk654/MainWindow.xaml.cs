@@ -80,18 +80,13 @@ namespace bk654
             }
         }
 
-        //public void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //   // GenerateWorkShiftForEmployeeAllYear();
-        //}
-
         private void Restaurant_Click(object sender, RoutedEventArgs e)
         {
             if (!viewRestaurantOpen)
             {
                 viewRestaurant = new ViewRestaurant();
                 viewRestaurant.Closed += (s, args) => viewRestaurantOpen = false;
-                viewWorkShiftOpen = true;
+                viewRestaurantOpen = true;
                 viewRestaurant.Show();
             }
             else

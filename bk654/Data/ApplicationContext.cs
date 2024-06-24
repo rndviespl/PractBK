@@ -36,7 +36,6 @@ public partial class ApplicationContext : DbContext
     public virtual DbSet<WorkersInfoView> WorkersInfoViews { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseMySql("data source=127.0.0.1;uid=root;pwd=root;database=bk1113", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.19-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

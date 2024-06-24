@@ -1,23 +1,4 @@
-DESKTOP-65QVTBM
 
 Scaffold-DbContext 'Data Source=127.0.0.1; uid=root;pwd=root; database=bk654;' -Provider Pomelo.EntityFrameworkCore.MySql -ContextDir Data -Context ApplicationContext -OutputDir Models -Force
 
-<DataGrid.Columns>
-                <DataGridTextColumn Header="Worker ID" Binding="{Binding Path=WorkerId}" />
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Surname}" />
-                <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}" />
-                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}" />
-                <DataGridTextColumn Header="ID Позиции" Binding="{Binding Path=PositionId}" />
-                <DataGridTextColumn Header="ID Ресторана" Binding="{Binding Path=RestaurantId}" />
-                <DataGridTextColumn Header="Дата начала работы" Binding="{Binding Path=StartDate}" />
-                <DataGridTextColumn Header="Дата окончания работы" Binding="{Binding Path=EndDate}" />
-                <DataGridTextColumn Header="Причина увольнения" Binding="{Binding Path=DismissalReason}" />
-            </DataGrid.Columns>
 
-
-
-            отдельная датагрид у работников одного ресторана и указаны смены по дням или по часам
-            можно редактировать удалять смены или создавать если самостоятельно проставлять смену то объяснять причину
-
-          user  first_level_user_access
-          pwd   firstlvlaccess1

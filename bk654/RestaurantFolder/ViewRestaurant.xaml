@@ -35,8 +35,8 @@
             <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="updateButtonShift" Content="Update" Click="UpdateRestaurantButton_Click"/>
-                        <Button x:Name="deleteButtonShift" Content="Delete" Click="DeleteShiftButton_Click"/>
+                        <Button x:Name="updateButtonShift" Content="обновить" Click="UpdateRestaurantButton_Click"/>
+                        <Button x:Name="deleteButtonShift" Content="удалить" Click="DeleteShiftButton_Click"/>
                         <Button x:Name="showWorkerinThisRestaurant" Content="работники" Click="ShowWorkerinThisRestaurant_Click"/>
                     </StackPanel>
                 </DataTemplate>
