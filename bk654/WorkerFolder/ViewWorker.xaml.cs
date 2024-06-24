@@ -111,8 +111,12 @@ namespace bk654.WorkerFolder
 
         private void ShowWorkedHoursForWorker(Worker worker1, List<WorkShift> workShifts, List<PositionAtWork> positions)
         {
-            var halfMonthShifts = workShifts.GroupBy(ws => new { Year = ws.StartShift.Year, Month = ws.StartShift.Month,
-                Half = ws.StartShift.Day <= 15 ? "Первая" : "Вторая" })
+            var halfMonthShifts = workShifts.GroupBy(ws => new
+            {
+                Year = ws.StartShift.Year,
+                Month = ws.StartShift.Month,
+                Half = ws.StartShift.Day <= 15 ? "Первая" : "Вторая"
+            })
                                             .OrderBy(g => g.Key.Year).ThenBy(g => g.Key.Month).ThenBy(g => g.Key.Half)
                                             .Select(group => new
                                             {
@@ -137,30 +141,20 @@ namespace bk654.WorkerFolder
 
         private void ShowFormButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            var selectedWorker = dataGrid.SelectedItem as Worker;
+            if (selectedWorker != null)
             {
-                var selectedWorker = dataGrid.SelectedItem as Worker;
-                if (selectedWorker != null)
+                var selectedReview = dbContext.PerformanceReviewSummaries.FirstOrDefault(w => w.WorkerId == selectedWorker.WorkerId);
+                if (selectedReview != null)
                 {
-                    var selectedReview = dbContext.PerformanceReviewSummaries.FirstOrDefault(w => w.WorkerId == selectedWorker.WorkerId);
-                    if (selectedReview != null)
-                    {
-                        ShowWorkedReviewSummary(selectedReview, selectedWorker);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Отзывы о выбранном сотруднике не найдены.", "Отсутствует информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-
+                    ShowWorkedReviewSummary(selectedReview, selectedWorker);
+                }
+                else
+                {
+                    MessageBox.Show("Отзывы о выбранном сотруднике не найдены.", "Отсутствует информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("произошла ошибка: " + ex.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
         }
-
         private void ShowWorkedReviewSummary(PerformanceReviewSummary selectedWorker, Worker worker1)
         {
             try

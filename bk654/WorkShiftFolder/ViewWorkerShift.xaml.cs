@@ -31,38 +31,38 @@ namespace bk654.WorkShiftFolder
         {
             try
             {
-                IQueryable<Worker> matchedWorkers = dbContext.Workers;
+                // Получаем список всех работников
+                var workers = dbContext.Workers.AsQueryable();
 
+                // Фильтруем работников по критериям поиска, если они заданы
                 if (!string.IsNullOrWhiteSpace(searchCriteria))
                 {
-                    var keywords = searchCriteria.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
+                    var keywords = searchCriteria.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var keyword in keywords)
                     {
-                        string keywordLower = keyword.ToLower();
-
-                        matchedWorkers = matchedWorkers.Where(worker =>
-                            worker.Surname.ToLower().Contains(keywordLower) ||
-                            worker.Name.ToLower().Contains(keywordLower)
-                        );
+                        workers = workers.Where(worker =>
+                            worker.Surname.ToLower().Contains(keyword) ||
+                            worker.Name.ToLower().Contains(keyword));
                     }
                 }
+                // Получаем идентификаторы отобранных работников
+                var workerIds = workers.Select(worker => worker.WorkerId).ToList();
 
-                List<int> matchedWorkerIds = matchedWorkers.Select(worker => worker.WorkerId).ToList();
+                // Получаем смены этих работников
+                var query = dbContext.WorkShifts.Where(ws => workerIds.Contains(ws.WorkerId));
 
-                IQueryable<WorkShift> query = dbContext.WorkShifts
-                    .Where(ws => matchedWorkerIds.Contains(ws.WorkerId));
-
-                int totalRecords = query.Count();
+                // Рассчитываем общее количество записей и страницы
+                var totalRecords = query.Count();
                 _totalPages = (int)Math.Ceiling((double)totalRecords / _pageSize);
 
-                int offset = (_currentPage - 1) * _pageSize;
-                _workers = dbContext.Workers.ToList();
-                _workShifts = query.OrderBy(ws => ws.WorkShiftId).Skip(offset).Take(_pageSize).ToList();
-                var displayItems = _workShifts.Select(workShift =>
-                {
-                    var worker = _workers.FirstOrDefault(w => w.WorkerId == workShift.WorkerId);
+                // Вычисляем смещение и извлекаем текущую страницу смен
+                var offset = (_currentPage - 1) * _pageSize;
+                var workShifts = query.OrderBy(ws => ws.WorkShiftId).Skip(offset).Take(_pageSize).ToList();
 
+                // Создаем список элементов для отображения
+                var displayItems = workShifts.Select(workShift =>
+                {
+                    var worker = workers.FirstOrDefault(w => w.WorkerId == workShift.WorkerId);
                     return new
                     {
                         workShift.WorkerId,
@@ -78,11 +78,12 @@ namespace bk654.WorkShiftFolder
                     };
                 }).ToList();
 
+                // Устанавливаем источник данных для таблицы
                 dataGrid.ItemsSource = displayItems;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
