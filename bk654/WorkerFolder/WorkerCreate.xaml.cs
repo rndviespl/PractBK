@@ -35,7 +35,7 @@ namespace bk654
                 EndDate = datePickerEndDate.SelectedDate,
                 DismissalReason = textBoxDismissalReason.Text
             };
-
+            //ава
             dbContext.Workers.Add(newWorker);
             dbContext.SaveChanges();
 
